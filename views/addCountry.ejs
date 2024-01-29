@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src 'self';">
+
+    <title>Add a new Country</title>
+</head>
+<body>
+    <h1>Add a new Country</h1>
+    <form action="/api/countries" method="POST">
+        <label for="name">Country Name</label>
+        <input type="text" name="name" id="name" />
+        <br>
+        <label for="alpha2Code">Alpha2Code</label>
+        <input type="text" name="alpha2Code" id="alpha2Code" />
+        <br>
+        <label for="alpha3Code">Alpha3Code</label>
+        <input type="text" name="alpha3Code" id="alpha3Code" />
+        <br>
+        <button type="submit">Add Country</button>
+    </form>
+</body>
+</html>

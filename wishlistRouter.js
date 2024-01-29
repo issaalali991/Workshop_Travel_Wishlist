@@ -3,8 +3,8 @@ import countries from './countries.js';
 import { matchedData, validationResult } from 'express-validator';
 import { body, param } from 'express-validator';
 import bodyParser from 'body-parser';
-import e from 'express';
 
+import ejs from 'ejs';
 const wishlistRouter = express.Router();
 wishlistRouter.use(bodyParser.json());
 
@@ -17,14 +17,22 @@ wishlistRouter.get('/', (req, res) => {
     sortCountries = sortCountries.sort((a,b)=>a.name.localeCompare(b.name));
   }
 
-  res.json(sortCountries);
+  // res.json(sortCountries);
+  res.render('index.ejs', { countries: sortCountries });
 }
 );
+
+//  ------------ Add a new country to the list of countries -----------------
+wishlistRouter.get('/add', (req, res) => {
+ 
+  res.render('addCountry.ejs');
+});
 
 //  ------------2. POST /api/countries-----------------
 
 wishlistRouter.post('/', (req, res) => {
   const newCountry = req.body;
+  console.log(newCountry);
   const lastId = countries[countries.length - 1].id;
   if (!newCountry.name || !newCountry.alpha2Code || !newCountry.alpha3Code) {
     res.status(400).json({ error: 'Missing data' });
@@ -60,7 +68,9 @@ wishlistRouter.post('/', (req, res) => {
 
   newCountry.id = lastId + 1;
   countries.push(newCountry);
-  res.json(newCountry);
+  // res.json(newCountry);
+
+  res.redirect('/api/countries');
 }
 );
 //  ------------3. GET /api/countries/:code-----------------
